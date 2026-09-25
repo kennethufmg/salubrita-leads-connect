@@ -81,14 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Tenha uma clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade no atendimento e sem mensalidade — pague apenas pelos exames realizados, com preço competitivo. Solicite uma proposta à Salubritá.",
+          "Clínica parceira para os exames ocupacionais da sua empresa, em conformidade com a NR-07 (PCMSO): alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados, com preço competitivo. Solicite uma proposta à Salubritá.",
       },
       { name: "author", content: "Salubritá" },
       { property: "og:title", content: "Parceria com Clínica Ocupacional para Exames | Salubritá" },
       {
         property: "og:description",
         content:
-          "Clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados. Solicite uma proposta à Salubritá.",
+          "Clínica parceira para os exames ocupacionais da sua empresa, em conformidade com a NR-07 (PCMSO): alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados, com preço competitivo. Solicite uma proposta à Salubritá.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -96,7 +96,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "twitter:description",
         content:
-          "Clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados.",
+          "Clínica parceira para os exames ocupacionais da sua empresa, em conformidade com a NR-07 (PCMSO): alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados, com preço competitivo. Solicite uma proposta à Salubritá.",
       },
     ],
     links: [

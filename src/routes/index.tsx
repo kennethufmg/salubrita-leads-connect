@@ -46,7 +46,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Tenha uma clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade no atendimento e sem mensalidade — pague apenas pelos exames realizados, com preço competitivo. Solicite uma proposta à Salubritá.",
+          "Clínica parceira para os exames ocupacionais da sua empresa, em conformidade com a NR-07 (PCMSO): alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados, com preço competitivo. Solicite uma proposta à Salubritá.",
       },
       {
         property: "og:title",
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados. Solicite uma proposta à Salubritá.",
+          "Clínica parceira para os exames ocupacionais da sua empresa, em conformidade com a NR-07 (PCMSO): alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados, com preço competitivo. Solicite uma proposta à Salubritá.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -63,7 +63,7 @@ export const Route = createFileRoute("/")({
       {
         name: "twitter:description",
         content:
-          "Clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados.",
+          "Clínica parceira para os exames ocupacionais da sua empresa, em conformidade com a NR-07 (PCMSO): alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados, com preço competitivo. Solicite uma proposta à Salubritá.",
       },
     ],
     links: [{ rel: "canonical", href: "/" }],
