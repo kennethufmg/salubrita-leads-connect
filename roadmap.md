@@ -1,9 +1,8 @@
-# Melhorias estratégicas da landing de Combate a Incêndio (NR-23)
+# Transformação da landing: de NR-35 para Parceria com Clínica Ocupacional
 
-- [x] Analisar a referência e preservar apenas padrões aplicáveis à Salubritá
-- [x] Reorganizar a oferta, benefícios, prova de confiança e chamadas para WhatsApp
-- [x] Validar a nova página em desktop e celular
-- [x] Corrigir informações técnicas, transparência, formulário e privacidade
-- [x] Validar a landing e a política em desktop e celular
+- [x] Aplicar os 13 comandos do plano (metadados, menu, hero, selos, vantagens, exames, blocos, FAQ, formulário, rodapé)
+- [x] Gerar e inserir imagens clínicas (hero e atendimento)
+- [x] Atualizar a política de privacidade para os novos campos do formulário
+- [x] Validar visualmente a landing em desktop e celular
 - [ ] Preencher os dados pendentes marcados como [PREENCHER] (depende do cliente)
 - [ ] Ocultar o selo "Made with Lovable" (requer plano Pro)

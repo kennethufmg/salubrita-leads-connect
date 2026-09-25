@@ -81,17 +81,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Treinamento presencial de trabalho em altura conforme a NR-35, com formação, atualização da norma e reciclagem. Atendimento direto em Minas Gerais e, nos demais estados, por rede de parceiros.",
+          "Tenha uma clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade no atendimento e sem mensalidade — pague apenas pelos exames realizados, com preço competitivo. Solicite uma proposta à Salubritá.",
       },
       { name: "author", content: "Salubritá" },
-      { property: "og:title", content: "Salubritá | Medicina do Trabalho" },
+      { property: "og:title", content: "Parceria com Clínica Ocupacional para Exames | Salubritá" },
       {
         property: "og:description",
         content:
-          "Treinamento presencial de trabalho em altura (NR-35) com formação, atualização da norma e reciclagem. Solicite uma proposta pelo WhatsApp.",
+          "Clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados. Solicite uma proposta à Salubritá.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Parceria com Clínica Ocupacional para Exames | Salubritá" },
+      {
+        name: "twitter:description",
+        content:
+          "Clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados.",
+      },
     ],
     links: [
       {

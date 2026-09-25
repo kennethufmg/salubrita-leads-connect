@@ -3,56 +3,70 @@ import { useState, type FormEvent } from "react";
 import {
   ArrowDown,
   Award,
-  Building2,
   Check,
   ChevronDown,
-  ClipboardCheck,
   Clock3,
   Mail,
   Phone,
   ShieldCheck,
-  Users,
+  Tag,
+  Wallet,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImg from "@/assets/hero-altura.jpg";
+import heroImg from "@/assets/hero-clinica.jpg";
 import logoAsset from "@/assets/salubrita-logo.webp.asset.json";
-import trainingImg from "@/assets/treinamento-altura.jpg";
+import clinicImg from "@/assets/atendimento-clinica.jpg";
 
-const WHATSAPP_URL =
-  "https://wa.me/553131669006?text=" +
-  encodeURIComponent(
-    "Olá! Vim pelo site da Salubritá e quero solicitar uma proposta para o treinamento de Trabalho em Altura (NR-35).",
-  );
+function waLink(message: string) {
+  return `https://wa.me/553131669006?text=${encodeURIComponent(message)}`;
+}
 
-const RECYCLING_WHATSAPP_URL =
-  "https://wa.me/553131669006?text=" +
-  encodeURIComponent(
-    "Olá! Vim pelo site da Salubritá e quero solicitar uma proposta para o treinamento presencial de atualização da NR-35 (reciclagem de Trabalho em Altura).",
-  );
+const WHATSAPP_URL = waLink(
+  "Olá! Vim pelo site da Salubritá e quero saber mais sobre a parceria com a clínica ocupacional para realização de exames.",
+);
+const PROPOSAL_WHATSAPP_URL = waLink(
+  "Olá! Vim pelo site da Salubritá e quero solicitar uma proposta para a parceria de exames ocupacionais.",
+);
+const NO_FEE_WHATSAPP_URL = waLink(
+  "Olá! Vim pelo site da Salubritá e quero solicitar uma proposta para a parceria de exames ocupacionais sem mensalidade.",
+);
+const EXAMS_WHATSAPP_URL = waLink(
+  "Olá! Vim pelo site da Salubritá e quero saber quais exames ocupacionais a minha empresa precisa na parceria com a clínica ocupacional.",
+);
+const DOUBTS_WHATSAPP_URL = waLink(
+  "Olá! Vim pelo site da Salubritá e quero tirar dúvidas sobre a parceria de exames ocupacionais.",
+);
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Treinamento de Trabalho em Altura (NR-35) | Salubritá" },
+      { title: "Parceria com Clínica Ocupacional para Exames | Salubritá" },
       {
         name: "description",
         content:
-          "Treinamento presencial de trabalho em altura conforme a NR-35: formação, atualização da norma e reciclagem, com parte prática. Solicite uma proposta à Salubritá.",
+          "Tenha uma clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade no atendimento e sem mensalidade — pague apenas pelos exames realizados, com preço competitivo. Solicite uma proposta à Salubritá.",
       },
       {
         property: "og:title",
-        content: "Treinamento de Trabalho em Altura (NR-35) | Salubritá",
+        content: "Parceria com Clínica Ocupacional para Exames | Salubritá",
       },
       {
         property: "og:description",
         content:
-          "Treinamento presencial de trabalho em altura com formação, atualização da norma e reciclagem para empresas. Fale com a Salubritá.",
+          "Clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados. Solicite uma proposta à Salubritá.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Parceria com Clínica Ocupacional para Exames | Salubritá" },
+      {
+        name: "twitter:description",
+        content:
+          "Clínica parceira para os exames ocupacionais da sua empresa: alto padrão de qualidade, agilidade e sem mensalidade — pague apenas pelos exames realizados.",
+      },
     ],
-    links: [{ rel: "canonical", href: "https://salubrita-zap-lead.lovable.app/" }],
+    links: [{ rel: "canonical", href: "/" }],
   }),
 });
 
@@ -72,10 +86,18 @@ function Wordmark() {
   );
 }
 
-function WhatsAppButton({ label = "Solicitar proposta no WhatsApp", className = "" }: { label?: string; className?: string }) {
+function WhatsAppButton({
+  href,
+  label = "Solicitar proposta no WhatsApp",
+  className = "",
+}: {
+  href: string;
+  label?: string;
+  className?: string;
+}) {
   return (
     <a
-      href={WHATSAPP_URL}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       className={`inline-flex min-h-12 items-center justify-center gap-3 rounded-lg bg-accent px-6 py-3.5 font-display font-bold text-accent-foreground shadow-lg shadow-accent/20 transition hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${className}`}
@@ -92,13 +114,14 @@ function Header() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-4 py-3 sm:px-6">
         <Wordmark />
         <nav className="hidden items-center gap-7 text-sm font-semibold text-muted-foreground md:flex" aria-label="Navegação principal">
-          <a href="#beneficios" className="transition-colors hover:text-brand-teal-deep">Benefícios</a>
-          <a href="#conteudo" className="transition-colors hover:text-brand-teal-deep">Conteúdo</a>
+          <a href="#vantagens" className="transition-colors hover:text-brand-teal-deep">Vantagens</a>
+          <a href="#exames" className="transition-colors hover:text-brand-teal-deep">Exames</a>
+          <a href="#como-funciona" className="transition-colors hover:text-brand-teal-deep">Como funciona</a>
           <a href="#duvidas" className="transition-colors hover:text-brand-teal-deep">Dúvidas</a>
           <a href="#contato" className="transition-colors hover:text-brand-teal-deep">Contato</a>
         </nav>
         <div className="hidden sm:block">
-          <WhatsAppButton label="Falar com consultor" />
+          <WhatsAppButton href={WHATSAPP_URL} label="Falar com consultor" />
         </div>
         <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="Falar com consultor no WhatsApp" className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent text-accent-foreground sm:hidden">
           <WhatsAppIcon className="h-6 w-6" />
@@ -115,36 +138,36 @@ function Hero() {
         <div className="reveal-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-teal/25 bg-background px-3 py-1.5 text-xs font-bold text-brand-teal-deep uppercase">
             <ShieldCheck className="h-4 w-4 text-brand-teal" />
-            Certificado emitido conforme a NR-35
+            Parceria sem mensalidade — pague só pelo exame realizado
           </div>
           <h1 className="mt-5 text-4xl leading-[1.06] font-extrabold text-foreground sm:text-5xl lg:text-6xl">
-            Treinamento de <span className="text-brand-teal">Trabalho em Altura</span>
+            Sua empresa com uma <span className="text-brand-teal">clínica ocupacional parceira</span>, sem mensalidade
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-            Prepare sua equipe para trabalhar acima de 2 metros com segurança, conforme a NR-35 — com treinamentos <strong className="font-bold text-foreground">presenciais de atualização da norma</strong> para manter o certificado sempre em dia.
+            Conte com uma clínica parceira de alto padrão de qualidade para os exames ocupacionais da sua equipe, com agilidade no agendamento e nos resultados. <strong className="font-bold text-foreground">Sem taxa de adesão, sem mensalidade:</strong> você paga apenas pelos exames realizados, com preço competitivo.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <WhatsAppButton />
-            <a href="#conteudo" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border-2 border-border bg-background px-6 py-3 font-display font-bold text-foreground transition hover:border-brand-teal">
-              Ver conteúdo <ArrowDown className="h-4 w-4" />
+            <WhatsAppButton href={PROPOSAL_WHATSAPP_URL} />
+            <a href="#vantagens" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border-2 border-border bg-background px-6 py-3 font-display font-bold text-foreground transition hover:border-brand-teal">
+              Ver vantagens <ArrowDown className="h-4 w-4" />
             </a>
           </div>
           <p className="mt-4 flex items-center gap-2 text-sm font-medium text-muted-foreground">
-            <Check className="h-4 w-4 text-brand-teal" /> Turmas presenciais, com prática, proposta clara e sob medida.
+            <Check className="h-4 w-4 text-brand-teal" /> Exames ocupacionais com qualidade, agilidade e proposta sob medida para sua empresa.
           </p>
         </div>
 
         <div className="relative mx-auto w-full max-w-xl lg:mx-0">
           <div className="relative aspect-[5/4] overflow-hidden rounded-2xl bg-muted shadow-2xl">
-            <img src={heroImg} alt="Profissional com cinturão de segurança e talabarte duplo trabalhando em altura em estrutura industrial" width={1200} height={960} className="h-full w-full object-cover" />
+            <img src={heroImg} alt="Profissional de saúde realizando exame ocupacional em ambiente clínico" width={1200} height={960} className="h-full w-full object-cover" />
             <div className="absolute inset-x-0 bottom-0 bg-brand-teal-deep/90 p-5 text-primary-foreground">
-              <p className="font-display text-lg font-bold">Formação presencial, teórica e prática</p>
-              <p className="mt-1 text-sm text-primary-foreground/80">Análise de risco, equipamentos de proteção, ancoragem e resgate.</p>
+              <p className="font-display text-lg font-bold">Sem mensalidade</p>
+              <p className="mt-1 text-sm text-primary-foreground/80">Pague somente pelos exames realizados, sem taxa fixa.</p>
             </div>
           </div>
           <div className="mt-6 flex items-center gap-4 rounded-xl border border-border bg-card p-5 shadow-xl max-sm:justify-center">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-tint text-brand-teal-deep"><Award className="h-6 w-6" /></span>
-            <div><p className="text-xs font-semibold text-muted-foreground">Desde 2017</p><p className="font-display text-lg font-bold text-foreground">Experiência que protege</p></div>
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-tint text-brand-teal-deep"><Zap className="h-6 w-6" /></span>
+            <div><p className="text-xs font-semibold text-muted-foreground">Alta agilidade</p><p className="font-display text-lg font-bold text-foreground">Agendamento rápido e resultado em prazo reduzido</p></div>
           </div>
         </div>
       </div>
@@ -154,10 +177,12 @@ function Hero() {
 
 function Stats() {
   return (
-    <section aria-label="Conformidade do treinamento" className="bg-brand-teal-deep text-primary-foreground">
+    <section aria-label="Padrão de qualidade da clínica parceira" className="bg-brand-teal-deep text-primary-foreground">
       <div className="mx-auto flex max-w-6xl items-center justify-center gap-3 px-4 py-8 text-center sm:px-6">
         <ShieldCheck className="h-7 w-7 shrink-0 text-brand-yellow" />
-        <p className="font-display text-xl font-extrabold sm:text-2xl">Treinamentos presenciais, teóricos e práticos, em conformidade com a NR-35</p>
+        <p className="font-display text-xl font-extrabold sm:text-2xl">
+          Alto padrão de qualidade <span className="block text-sm font-semibold text-primary-foreground/80 sm:inline">— estrutura, equipamentos e equipe qualificada na clínica parceira</span>
+        </p>
       </div>
     </section>
   );
@@ -175,14 +200,15 @@ function SectionTitle({ eyebrow, title, text }: { eyebrow: string; title: string
 
 function Benefits() {
   const benefits = [
-    { icon: ShieldCheck, title: "Conformidade com a NR-35", text: "Conteúdo alinhado à norma de trabalho em altura para apoiar a regularidade da operação e evitar multas." },
-    { icon: Users, title: "Atualização da norma presencial", text: "Treinamentos presenciais de atualização da NR-35: sua equipe conhece as mudanças da norma direto com o instrutor, com espaço para dúvidas." },
-    { icon: Building2, title: "Turma na sua empresa", text: "Planejamento conforme o número de pessoas, os riscos do local e a rotina da sua operação." },
+    { icon: Wallet, title: "Sem mensalidade ou taxa fixa", text: "Nenhum custo recorrente: você paga apenas pelos exames realizados, quando forem realizados." },
+    { icon: Zap, title: "Agilidade no atendimento", text: "Agendamento rápido e resultados em prazo reduzido, sem filas nem burocracia." },
+    { icon: Award, title: "Alto padrão de qualidade", text: "Clínica parceira com estrutura adequada, equipamentos calibrados e equipe qualificada em saúde ocupacional." },
+    { icon: Tag, title: "Preço competitivo", text: "Valores acessíveis por exame, sem abrir mão da qualidade e da conformidade legal." },
   ];
   return (
-    <section id="beneficios" className="bg-background py-16 lg:py-24">
+    <section id="vantagens" className="bg-background py-16 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionTitle eyebrow="Evite riscos, multas e acidentes graves com queda" title="O que sua empresa ganha com esta capacitação" text="Uma formação objetiva, conectada aos riscos reais do local de trabalho e conduzida por especialistas em Saúde e Segurança do Trabalho." />
+        <SectionTitle eyebrow="Exames ocupacionais sem burocracia" title="O que sua empresa ganha com esta parceria" text="Uma parceria simples e sem burocracia, com foco em qualidade, agilidade e economia para os exames ocupacionais da sua equipe." />
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {benefits.map(({ icon: Icon, title, text }) => (
             <article key={title} className="rounded-xl border border-border bg-card p-7 shadow-sm transition hover:-translate-y-1 hover:border-brand-teal/50 hover:shadow-md">
@@ -191,70 +217,82 @@ function Benefits() {
               <p className="mt-3 leading-relaxed text-muted-foreground">{text}</p>
             </article>
           ))}
-          <article className="rounded-xl border border-border bg-card p-7 shadow-sm transition hover:-translate-y-1 hover:border-brand-teal/50 hover:shadow-md">
-            <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-tint text-brand-teal-deep"><Clock3 className="h-6 w-6" /></span>
-            <h3 className="mt-5 text-xl font-bold text-foreground">Evite o vencimento do certificado</h3>
-            <p className="mt-3 leading-relaxed text-muted-foreground">A NR-35 exige reciclagem a cada 2 anos, no máximo — ou antes, em situações previstas na norma.</p>
-          </article>
         </div>
       </div>
     </section>
   );
 }
 
-function TrainingOptions() {
+function ExamOptions() {
   const options = [
-    { label: "Destaque", title: "Atualização da NR-35 (presencial)", hours: "Reciclagem bienal", description: "Treinamento presencial de atualização da norma e reciclagem periódica, para manter a equipe apta e o certificado válido.", items: ["Novidades e mudanças na NR-35", "Casos reais e lições aprendidas", "Reciclagem obrigatória a cada 2 anos, no máximo", "Prática com equipamentos e diálogo com o instrutor"] },
-    { label: "Formação", title: "Trabalho em altura para a equipe", hours: "8 horas", description: "Para funcionários que atuam acima de 2 metros com risco de queda, conforme a carga horária mínima da NR-35.", items: ["Normas, análise de risco e permissão de trabalho", "Cinturão, talabarte, trava-quedas e ancoragem", "Montagem e uso de sistemas de acesso", "Plano de resgate e primeiros socorros"] },
+    {
+      label: "Destaque",
+      title: "Exames periódicos e de retorno ao trabalho",
+      chip: "Recorrência conforme o PCMSO",
+      description: "Acompanhamento recorrente da saúde da sua equipe, com agendamento facilitado e emissão de ASO em prazo ágil.",
+      items: ["Exame clínico ocupacional atualizado", "Acompanhamento conforme o PCMSO da empresa", "Agendamento facilitado, sem mensalidade", "Emissão de ASO em prazo ágil"],
+    },
+    {
+      label: "Contratação e desligamento",
+      title: "Exames admissionais e demissionais",
+      chip: "Conformidade com as normas vigentes",
+      description: "Para novos colaboradores e para o encerramento do vínculo, com emissão de ASO e conformidade com as normas vigentes.",
+      items: ["Exame clínico e avaliação ocupacional", "Exames complementares conforme a função", "Emissão de ASO", "Suporte para documentação da empresa"],
+    },
   ];
   return (
-    <section id="conteudo" className="bg-brand-tint-blue/55 py-16 lg:py-24">
+    <section id="exames" className="bg-brand-tint-blue/55 py-16 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionTitle eyebrow="Capacitação por momento da equipe" title="A formação certa para cada necessidade" text="Conte ao consultor quem precisa ser treinado. A Salubritá orienta a composição adequada da turma." />
+        <SectionTitle eyebrow="Exames para cada etapa da jornada do colaborador" title="O exame certo para cada momento" text="Conte ao consultor a situação da sua equipe. A Salubritá orienta os exames adequados junto à clínica parceira." />
         <div className="mx-auto mt-12 grid max-w-4xl gap-6 lg:grid-cols-2">
           {options.map((option, index) => (
             <article key={option.title} className={`rounded-xl border p-7 shadow-sm ${index === 0 ? "border-brand-teal bg-brand-teal-deep text-primary-foreground" : "border-border bg-card text-card-foreground"}`}>
               <div className="flex items-center justify-between gap-4">
                 <span className={`rounded-md px-3 py-1 text-xs font-bold uppercase ${index === 0 ? "bg-brand-yellow text-accent-foreground" : "bg-brand-tint text-brand-teal-deep"}`}>{option.label}</span>
-                <span className={`flex items-center gap-1.5 text-sm font-bold ${index === 0 ? "text-brand-yellow" : "text-brand-teal-deep"}`}><Clock3 className="h-4 w-4" />{option.hours}</span>
+                <span className={`flex items-center gap-1.5 text-right text-sm font-bold ${index === 0 ? "text-brand-yellow" : "text-brand-teal-deep"}`}><Clock3 className="h-4 w-4 shrink-0" />{option.chip}</span>
               </div>
               <h3 className="mt-5 text-2xl font-extrabold">{option.title}</h3>
               <p className={`mt-3 leading-relaxed ${index === 0 ? "text-primary-foreground/80" : "text-muted-foreground"}`}>{option.description}</p>
               <ul className={`mt-6 space-y-3 border-t pt-6 ${index === 0 ? "border-primary-foreground/15" : "border-border"}`}>
-                {option.items.map((item) => <li key={item} className="flex items-center gap-3 text-sm font-semibold"><Check className={`h-5 w-5 ${index === 0 ? "text-brand-yellow" : "text-brand-teal"}`} />{item}</li>)}
+                {option.items.map((item) => <li key={item} className="flex items-center gap-3 text-sm font-semibold"><Check className={`h-5 w-5 shrink-0 ${index === 0 ? "text-brand-yellow" : "text-brand-teal"}`} />{item}</li>)}
               </ul>
             </article>
           ))}
         </div>
         <div className="mx-auto mt-7 flex max-w-4xl flex-col items-start justify-between gap-5 rounded-xl border border-brand-teal/30 bg-card p-6 shadow-sm sm:flex-row sm:items-center">
           <div>
-            <p className="font-display text-xl font-extrabold text-foreground">Por que presencial?</p>
-            <p className="mt-2 max-w-2xl leading-relaxed text-muted-foreground">A atualização da norma e a reciclagem acontecem com o instrutor na sala e na prática: sua equipe manuseia os equipamentos, treina ancoragem e resgate e tira dúvidas na hora.</p>
+            <p className="font-display text-xl font-extrabold text-foreground">Por que uma parceria sem mensalidade?</p>
+            <p className="mt-2 max-w-2xl leading-relaxed text-muted-foreground">Sua empresa não precisa se comprometer com um valor fixo mensal para ter uma clínica de confiança à disposição. Você aciona a parceria quando precisar, paga apenas pelos exames realizados e mantém previsibilidade de custos, com preço competitivo garantido pela parceria.</p>
           </div>
-          <a href={RECYCLING_WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 shrink-0 items-center justify-center gap-3 rounded-lg bg-accent px-6 py-3.5 font-display font-bold text-accent-foreground shadow-lg shadow-accent/20 transition hover:-translate-y-0.5">
-            <WhatsAppIcon className="h-5 w-5" /> Agendar atualização
-          </a>
+          <WhatsAppButton href={NO_FEE_WHATSAPP_URL} label="Solicitar proposta sem mensalidade" className="shrink-0 max-sm:w-full" />
         </div>
-        <p className="mx-auto mt-5 max-w-4xl text-center text-sm font-semibold text-brand-teal-deep">Formação teórica e prática, conforme a NR-35</p>
-        <div className="mt-9 text-center"><WhatsAppButton label="Descobrir a melhor opção para minha equipe" /></div>
+        <p className="mx-auto mt-5 max-w-4xl text-center text-sm font-semibold text-brand-teal-deep">Parceria sem mensalidade, com pagamento apenas pelos exames realizados.</p>
+        <div className="mt-9 text-center"><WhatsAppButton href={EXAMS_WHATSAPP_URL} label="Descobrir os exames que minha empresa precisa" /></div>
       </div>
     </section>
   );
 }
 
-function PracticalSection() {
-  const points = ["Quando a NR-35 se aplica: trabalho acima de 2 metros com risco de queda", "Análise de risco e Permissão de Trabalho (PT)", "Cinturão tipo paraquedista, talabarte, trava-quedas e pontos de ancoragem", "Parte prática presencial com equipamentos e simulação de resgate", "Plano de resgate e procedimentos de emergência", "Documentação para apoiar a conformidade da empresa"];
+function CoverageSection() {
+  const points = [
+    "Exames admissionais, periódicos, de retorno ao trabalho e demissionais",
+    "Emissão de ASO (Atestado de Saúde Ocupacional)",
+    "Exames complementares conforme a função (ex.: audiometria, acuidade visual)",
+    "Agendamento ágil, sem mensalidade ou taxa de adesão",
+    "Pagamento apenas pelos exames efetivamente realizados",
+    "Documentação de apoio à conformidade com o PCMSO da empresa",
+  ];
   return (
     <section className="bg-background py-16 lg:py-24">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="relative">
-          <img src={trainingImg} alt="Instrutor conduzindo treinamento presencial prático de trabalho em altura para uma equipe" width={1008} height={800} loading="lazy" className="aspect-[5/4] w-full rounded-2xl object-cover shadow-xl" />
-          <div className="absolute right-4 bottom-4 max-w-sm rounded-lg bg-background/95 px-4 py-3 shadow-lg"><p className="text-xs font-semibold text-muted-foreground">Onde atendemos</p><p className="font-display font-bold text-brand-teal-deep">Atendimento direto em Minas Gerais e, nos demais estados, por rede de parceiros [PREENCHER: critério de seleção dos parceiros, ex.: homologados pela Salubritá].</p></div>
+          <img src={clinicImg} alt="Atendimento em clínica ocupacional parceira" width={1008} height={800} loading="lazy" className="aspect-[5/4] w-full rounded-2xl object-cover shadow-xl" />
+          <div className="absolute right-4 bottom-4 max-w-sm rounded-lg bg-background/95 px-4 py-3 shadow-lg"><p className="text-xs font-semibold text-muted-foreground">Onde atendemos</p><p className="font-display font-bold text-brand-teal-deep">Atendimento direto em Minas Gerais e, nos demais estados, por rede de clínicas parceiras [PREENCHER: critério de seleção das clínicas parceiras].</p></div>
         </div>
         <div>
-          <p className="text-sm font-bold text-brand-teal uppercase">Conteúdo aplicado</p>
-          <h2 className="mt-2 text-3xl font-extrabold text-foreground sm:text-4xl">Sua equipe sabe o que fazer nos metros mais críticos</h2>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">A formação traduz a norma para situações reais do seu ambiente, com linguagem clara e prática presencial com os equipamentos.</p>
+          <p className="text-sm font-bold text-brand-teal uppercase">Saúde ocupacional em dia</p>
+          <h2 className="mt-2 text-3xl font-extrabold text-foreground sm:text-4xl">Sua empresa em dia com a saúde ocupacional, sem complicação</h2>
+          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">A parceria cobre os exames exigidos pelo PCMSO, com agilidade no agendamento e qualidade na execução.</p>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
             {points.map((point) => <li key={point} className="flex items-start gap-3 text-sm font-semibold text-foreground"><span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-tint text-brand-teal-deep"><Check className="h-3.5 w-3.5" /></span>{point}</li>)}
           </ul>
@@ -266,14 +304,14 @@ function PracticalSection() {
 
 function Process() {
   const steps = [
-    ["01", "Fale com o consultor", "Informe o número de pessoas, as funções e onde será o treinamento."],
-    ["02", "Receba a proposta", "A equipe organiza formato, data e condições adequadas à sua operação."],
-    ["03", "Capacite sua equipe", "A turma realiza a formação presencial e recebe a documentação correspondente."],
+    ["01", "Fale com o consultor", "Informe o número de colaboradores, as funções e os exames necessários."],
+    ["02", "Receba a proposta", "Sem mensalidade: a equipe organiza prazos e condições, com preço por exame."],
+    ["03", "Realize os exames", "Os colaboradores realizam os exames na clínica parceira e recebem a documentação (ASO) correspondente."],
   ];
   return (
-    <section className="bg-brand-teal-deep py-16 text-primary-foreground lg:py-24">
+    <section id="como-funciona" className="bg-brand-teal-deep py-16 text-primary-foreground lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="max-w-2xl"><p className="text-sm font-bold text-brand-yellow uppercase">Sem complicação</p><h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Da conversa à turma em três passos</h2></div>
+        <div className="max-w-2xl"><p className="text-sm font-bold text-brand-yellow uppercase">Sem complicação</p><h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Da conversa ao exame em três passos</h2></div>
         <div className="mt-12 grid gap-8 md:grid-cols-3">
           {steps.map(([number, title, text]) => <div key={number} className="border-t border-primary-foreground/20 pt-6"><span className="font-display text-4xl font-extrabold text-brand-yellow">{number}</span><h3 className="mt-4 text-xl font-bold">{title}</h3><p className="mt-2 leading-relaxed text-primary-foreground/75">{text}</p></div>)}
         </div>
@@ -284,17 +322,16 @@ function Process() {
 
 function FAQ() {
   const faqs = [
-    ["Quem precisa fazer o treinamento de NR-35?", "Todo trabalhador que atua em altura acima de 2 metros e que esteja exposto a risco de queda, conforme a NR-35. Cargas horárias e situações específicas: [PREENCHER: detalhamento adotado pela Salubritá]."],
-    ["Quando é preciso fazer a atualização (reciclagem)?", "A NR-35 exige reciclagem a cada 2 anos, no máximo. Antes disso, o treinamento deve ser refeito quando houver mudança nas condições do local, após acidente grave ou fatal, ou quando o trabalhador voltar à atividade após afastamento superior a 90 dias."],
-    ["Por que a Salubritá realiza o treinamento de forma presencial?", "Porque a prática faz diferença: a turma manuseia cinturão, talabarte e trava-quedas, treina ancoragem e resgate e discute as mudanças da norma diretamente com o instrutor, com espaço para dúvidas reais da operação."],
-    ["Como é emitido o certificado?", "O treinamento segue a NR-35, com conteúdo teórico e parte prática, e é emitido com a documentação correspondente. [PREENCHER: quem emite o certificado e o nome do responsável técnico]."],
-    ["A Salubritá pode treinar uma turma dentro da empresa?", "Sim. A turma pode ser organizada na sua empresa ou em local combinado, conforme estrutura, cidade e número de participantes."],
-    ["É possível treinar equipes fora de Minas Gerais?", "Sim. O atendimento direto é realizado em Minas Gerais e, nos demais estados, por rede de parceiros [PREENCHER: quem ministra o curso, quem emite o certificado e critério de seleção dos parceiros]."],
-    ["Qual o valor do treinamento?", "O valor depende do número de participantes, da função e do local. [PREENCHER: faixa de preço ou 'a partir de', se desejado]. Solicite uma proposta e receba a resposta em até [PREENCHER: prazo]."],
-    ["Qual o tamanho mínimo da turma e qual o prazo para agendar?", "[PREENCHER: tamanho mínimo da turma e prazo para agendamento]."],
-    ["Posso inscrever apenas uma pessoa?", "[PREENCHER: sim/não, vagas avulsas]."],
-    ["Quando o certificado é entregue?", "[PREENCHER: prazo e forma de entrega do certificado]."],
-    ["O que é necessário antes do treinamento?", "Os participantes devem estar com exame médico ocupacional (ASO) compatível com a atividade de trabalho em altura. [PREENCHER: outros requisitos]."],
+    ["Quais exames a clínica parceira realiza?", "Exames admissionais, periódicos, de retorno ao trabalho, de mudança de função e demissionais, com emissão de ASO, além de exames complementares conforme a função, como audiometria e acuidade visual. [PREENCHER: lista completa de exames disponíveis]."],
+    ["Existe mensalidade ou taxa de adesão à parceria?", "Não. A parceria não tem mensalidade nem taxa de adesão: sua empresa paga apenas pelos exames realizados, quando forem realizados."],
+    ["Como funciona o pagamento?", "O pagamento é feito por exame realizado, com preço competitivo. [PREENCHER: forma de pagamento e prazo de faturamento]."],
+    ["Qual o prazo para agendamento dos exames?", "[PREENCHER: prazo médio de agendamento]."],
+    ["Em quanto tempo sai o resultado e o ASO?", "[PREENCHER: prazo de emissão do ASO e dos resultados de exames complementares]."],
+    ["A clínica atende fora de Minas Gerais?", "Sim. O atendimento direto é realizado em Minas Gerais e, nos demais estados, por rede de clínicas parceiras. [PREENCHER: critério de seleção das clínicas parceiras]."],
+    ["Qual o valor dos exames?", "O valor varia conforme o tipo de exame e a função do colaborador. [PREENCHER: faixa de preço ou tabela de valores, se desejado]."],
+    ["É necessário assinar contrato de fidelidade?", "[PREENCHER: sim/não, condições contratuais da parceria]."],
+    ["Como a empresa acompanha os vencimentos dos exames periódicos?", "[PREENCHER: se há controle/alerta de vencimento oferecido pela Salubritá]."],
+    ["Como solicito um exame para um colaborador?", "Basta enviar uma solicitação pelo WhatsApp com os dados do colaborador e a função. A equipe organiza o agendamento na clínica parceira."],
   ];
   return (
     <section id="duvidas" className="bg-background py-16 lg:py-24">
@@ -316,11 +353,12 @@ function FinalCTA() {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
-    const functions = data.getAll("funcao").map(String);
+    const examType = String(data.get("tipo") ?? "");
     const whatsapp = String(data.get("whatsapp") ?? "").replace(/\D/g, "");
+    const examCount = String(data.get("colaboradores") ?? "");
 
-    if (functions.length === 0) {
-      setFormError("Selecione pelo menos uma função.");
+    if (!examType) {
+      setFormError("Selecione o tipo de exame.");
       setSubmitted(false);
       return;
     }
@@ -331,23 +369,28 @@ function FinalCTA() {
       return;
     }
 
+    if (examCount && (Number(examCount) < 1 || Number(examCount) > 10000)) {
+      setFormError("Informe um número de colaboradores válido.");
+      setSubmitted(false);
+      return;
+    }
+
     setFormError("");
     setSubmitted(true);
 
     const message = [
-      "Olá! Vim pelo site da Salubritá e quero solicitar uma proposta para o treinamento de Trabalho em Altura (NR-35).",
+      "Olá! Vim pelo site da Salubritá e quero solicitar uma proposta para a parceria de exames ocupacionais, sem mensalidade.",
       "",
       `Nome: ${String(data.get("nome") ?? "")}`,
       `Empresa: ${String(data.get("empresa") ?? "")}`,
       `WhatsApp: ${String(data.get("whatsapp") ?? "")}`,
       `E-mail: ${String(data.get("email") ?? "")}`,
       `Cidade/UF: ${String(data.get("cidade") ?? "")}`,
-      `Nº de pessoas: ${String(data.get("pessoas") ?? "")}`,
-      `Função: ${functions.join(", ")}`,
-      `Tipo: ${String(data.get("tipo") ?? "")}`,
+      `Nº de colaboradores a examinar: ${examCount}`,
+      `Tipo de exame: ${examType}`,
     ].join("\n");
 
-    window.open(`https://wa.me/553131669006?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+    window.open(waLink(message), "_blank", "noopener,noreferrer");
   }
 
   const inputClass = "mt-1.5 min-h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-foreground outline-none transition focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20";
@@ -356,11 +399,11 @@ function FinalCTA() {
     <section id="contato" className="bg-brand-teal py-16 lg:py-20">
       <div className="mx-auto grid max-w-5xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         <div className="text-primary-foreground">
-          <p className="text-sm font-bold text-brand-yellow uppercase">Sua equipe está com o treinamento de trabalho em altura em dia?</p>
-          <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Receba uma proposta para o treinamento NR-35</h2>
+          <p className="text-sm font-bold text-brand-yellow uppercase">Sua empresa já tem uma clínica parceira para os exames ocupacionais?</p>
+          <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Receba uma proposta sem mensalidade para os exames da sua empresa</h2>
           <p className="mt-3 text-primary-foreground/85">Resposta rápida, sem compromisso.</p>
           <div className="mt-7 flex flex-col items-start gap-3">
-            <WhatsAppButton label="Chamar no WhatsApp" />
+            <WhatsAppButton href={NO_FEE_WHATSAPP_URL} label="Chamar no WhatsApp" />
             <a href="tel:+553131669006" className="inline-flex items-center gap-2 font-bold hover:text-brand-yellow"><Phone className="h-4 w-4" /> Ligar: (31) 3166-9006</a>
             <span className="inline-flex items-center gap-2 font-bold"><Mail className="h-4 w-4" /> [PREENCHER: e-mail comercial]</span>
           </div>
@@ -373,25 +416,18 @@ function FinalCTA() {
             <label className="text-sm font-semibold">WhatsApp<input className={inputClass} name="whatsapp" type="tel" autoComplete="tel" inputMode="tel" placeholder="(31) 99999-9999" minLength={10} maxLength={20} required /></label>
             <label className="text-sm font-semibold">E-mail<input className={inputClass} name="email" type="email" autoComplete="email" maxLength={254} required /></label>
             <label className="text-sm font-semibold">Cidade/UF<input className={inputClass} name="cidade" autoComplete="address-level2" maxLength={100} placeholder="Belo Horizonte/MG" required /></label>
-            <label className="text-sm font-semibold">Nº de pessoas a treinar<input className={inputClass} name="pessoas" type="number" inputMode="numeric" min={1} max={10000} required /></label>
+            <label className="text-sm font-semibold">Nº de colaboradores a examinar<input className={inputClass} name="colaboradores" type="number" inputMode="numeric" min={1} max={10000} required /></label>
           </div>
 
-          <fieldset className="mt-5">
-            <legend className="text-sm font-bold">Função</legend>
-            <div className="mt-2 grid gap-2 sm:grid-cols-2">
-              {["Trabalhador em altura", "Supervisão de trabalho em altura", "Responsável por resgate"].map((item) => (
-                <label key={item} className="flex items-center gap-2 text-sm font-medium">
-                  <input type="checkbox" name="funcao" value={item} className="h-4 w-4 accent-brand-teal" /> {item}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-
-          <label className="mt-5 block text-sm font-semibold">Tipo
+          <label className="mt-5 block text-sm font-semibold">Tipo de exame
             <select className={inputClass} name="tipo" defaultValue="" required>
               <option value="" disabled>Selecione</option>
-              <option>Formação inicial (8h)</option>
-              <option>Atualização da norma / Reciclagem (presencial)</option>
+              <option>Admissional</option>
+              <option>Periódico</option>
+              <option>Retorno ao trabalho</option>
+              <option>Mudança de função</option>
+              <option>Demissional</option>
+              <option>Outro</option>
             </select>
           </label>
 
@@ -412,7 +448,7 @@ function Footer() {
   return (
     <footer className="bg-brand-teal-deep py-10 text-primary-foreground">
       <div className="mx-auto grid max-w-6xl gap-7 px-4 text-center sm:px-6 md:grid-cols-3 md:text-left">
-        <div><Wordmark /><p className="mt-4 text-sm text-primary-foreground/70">Belo Horizonte • MG — atendimento em [PREENCHER: estados]</p></div>
+        <div><Wordmark /><p className="mt-4 text-sm text-primary-foreground/70">Belo Horizonte • MG — atendimento direto em Minas Gerais e, nos demais estados, por rede de clínicas parceiras</p></div>
         <div className="text-sm leading-relaxed text-primary-foreground/75">
           <p>[PREENCHER: razão social]</p><p>CNPJ: [PREENCHER: CNPJ]</p><p>[PREENCHER: endereço completo]</p><p>[PREENCHER: e-mail comercial]</p>
         </div>
@@ -428,7 +464,7 @@ function Footer() {
 
 function FloatingWhatsApp() {
   return (
-    <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="Tirar dúvidas no WhatsApp" className="fixed right-4 bottom-4 z-50 flex items-center gap-3 rounded-full border-4 border-background bg-accent p-3 text-accent-foreground shadow-2xl transition hover:-translate-y-1 sm:right-6 sm:bottom-6 sm:pr-5">
+    <a href={DOUBTS_WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="Tirar dúvidas no WhatsApp" className="fixed right-4 bottom-4 z-50 flex items-center gap-3 rounded-full border-4 border-background bg-accent p-3 text-accent-foreground shadow-2xl transition hover:-translate-y-1 sm:right-6 sm:bottom-6 sm:pr-5">
       <WhatsAppIcon className="h-6 w-6" /><span className="hidden text-sm font-bold sm:inline">Tirar dúvidas</span>
     </a>
   );
@@ -439,8 +475,8 @@ function Index() {
    * Seções intencionalmente ocultas até o envio de dados reais:
    * 1. "Quem confia na Salubritá": até 6 logos de clientes e 2 a 3 depoimentos
    *    com nome, cargo e empresa [PREENCHER].
-   * 2. "Quem ministra o treinamento": foto, nome, formação e registro profissional
-   *    do instrutor ou responsável técnico [PREENCHER].
+   * 2. "Profissional responsável pelo atendimento": foto, nome, formação e
+   *    registro profissional do responsável técnico da clínica parceira [PREENCHER].
    */
-  return <div className="min-h-screen"><Header /><main><Hero /><Stats /><Benefits /><TrainingOptions /><PracticalSection /><Process /><FAQ /><FinalCTA /></main><Footer /><FloatingWhatsApp /></div>;
+  return <div className="min-h-screen"><Header /><main><Hero /><Stats /><Benefits /><ExamOptions /><CoverageSection /><Process /><FAQ /><FinalCTA /></main><Footer /><FloatingWhatsApp /></div>;
 }

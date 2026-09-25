@@ -53,7 +53,7 @@ function PrivacyPage() {
           <section>
             <h2 className="text-2xl font-bold">2. Dados coletados</h2>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              No formulário de solicitação de proposta, podem ser coletados nome, empresa, WhatsApp, e-mail, cidade/UF, número de pessoas a treinar, funções dos participantes e tipo de capacitação.
+              No formulário de solicitação de proposta, podem ser coletados nome, empresa, WhatsApp, e-mail, cidade/UF, número de colaboradores a examinar e tipo de exame.
             </p>
           </section>
 
