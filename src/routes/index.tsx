@@ -162,6 +162,7 @@ function Hero() {
 
         <div className="relative mx-auto w-full max-w-xl lg:mx-0">
           <div className="relative aspect-[5/4] overflow-hidden rounded-2xl bg-muted shadow-2xl">
+            {/* [PREENCHER: substituir por foto real da clínica parceira] — profissional de saúde realizando exame ocupacional */}
             <img src={heroImg} alt="Profissional de saúde realizando exame ocupacional em ambiente clínico" width={1200} height={960} className="h-full w-full object-cover" />
             <div className="absolute inset-x-0 bottom-0 bg-brand-teal-deep/90 p-5 text-primary-foreground">
               <p className="font-display text-lg font-bold">Sem mensalidade</p>
